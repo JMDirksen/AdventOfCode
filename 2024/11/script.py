@@ -1,5 +1,6 @@
 # import re
 from time import time
+import array
 
 
 def main():
@@ -12,6 +13,7 @@ def main():
 def part1(input):
     start = time()
     stones = list(map(int, input.split()))
+    stones = array.array("Q", stones)
     for i in range(75):
         print(f"Blink {i+1} at {int(time()-start)} sec.")
         s = 0
@@ -26,7 +28,7 @@ def part1(input):
                 s += 1
                 stones.insert(s, right)
             else:
-                stones[s] = (stones[s]*2024)
+                stones[s] = stones[s] * 2024
             s += 1
     return len(stones)
 
