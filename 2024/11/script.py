@@ -16,16 +16,17 @@ def part1(input):
     stones = array.array("Q", stones)
     for i in range(75):
         print(f"Blink {i+1} at {int(time()-start)} sec.")
+        print(f"Len: {len(stones)}")
         output = array.array("Q", [])
-        for s in range(len(stones)):
+        for s, stone in enumerate(stones):
             # Apply rules
-            if stones[s] == 0:
+            if stone == 0:
                 output.append(1)
-            elif len(str(stones[s])) % 2 == 0:
-                output.append(int(str(stones[s])[:len(str(stones[s]))//2]))
-                output.append(int(str(stones[s])[len(str(stones[s]))//2:]))
+            elif len(str(stone)) % 2 == 0:
+                output.append(int(str(stone)[:len(str(stone))//2]))
+                output.append(int(str(stone)[len(str(stone))//2:]))
             else:
-                output.append(stones[s] * 2024)
+                output.append(stone * 2024)
         stones = output
     return len(stones)
 
