@@ -1,4 +1,4 @@
-#import re
+# import re
 
 
 def main():
@@ -12,21 +12,21 @@ def part1(input):
     stones = list(map(int, input.split()))
     for i in range(75):
         print("Blink", i+1)
-        #print(stones, "-> ", end="")
-        output = []
-        for s in range(len(stones)):
-            stone = stones[s]
+        s = 0
+        while s < len(stones):
             # Apply rules
-            if stone == 0:
-                output += [1]
-            elif len(str(stone)) % 2 == 0:
-                output += [int(str(stone)[:int(len(str(stone))/2)])]
-                output += [int(str(stone)[int(len(str(stone))/2):])]
+            if stones[s] == 0:
+                stones[s] = 1
+            elif len(str(stones[s])) % 2 == 0:
+                left = int(str(stones[s])[:len(str(stones[s]))//2])
+                right = int(str(stones[s])[len(str(stones[s]))//2:])
+                stones[s] = left
+                s += 1
+                stones.insert(s, right)
             else:
-                output += [(stone*2024)]
-        #print(output)
-        stones = output
-    return len(output)
+                stones[s] = (stones[s]*2024)
+            s += 1
+    return len(stones)
 
 
 def part2(input):
