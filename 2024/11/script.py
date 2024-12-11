@@ -1,4 +1,5 @@
 # import re
+from time import time
 
 
 def main():
@@ -9,9 +10,10 @@ def main():
 
 
 def part1(input):
+    start = time()
     stones = list(map(int, input.split()))
     for i in range(75):
-        print("Blink", i+1)
+        print(f"Blink {i+1} at {int(time()-start)} sec.")
         s = 0
         while s < len(stones):
             # Apply rules
