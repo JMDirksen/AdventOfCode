@@ -2,7 +2,7 @@ import re
 
 
 def main():
-    inputfile = "example.txt"  # example.txt / input.txt
+    inputfile = "input.txt"  # example.txt / input.txt
     with open(inputfile) as f:
         input = f.read()
     #print(part1(input))
@@ -41,24 +41,34 @@ def part2(input):
         steps = int(line[1:])
         print(direction, steps, sep="", end=" ")
 
+        # Full turns
+        fts = steps // 100
+        # Remaining steps
+        steps = steps % 100
+
+        # Move dial
+        oldPosition = position
         if direction == "L":
             position -= steps
         elif direction == "R":
             position += steps
 
+        # Correct position not to exceed 99 or go below 0
+        while position > 99:
+            position -= 100
+        while position < 0:
+            position += 100
+
+        # Count zero position and passing zero
+        timespassingzero += fts
         if position == 0:
             timespassingzero += 1
-
-        if position > 99:
-            timespassingzero -= 1
-        while position > 99:
+        elif oldPosition == 0:
+            pass
+        elif direction == "L" and position > oldPosition:
             timespassingzero += 1
-            position -= 100
-        if position < 0:
-            timespassingzero -= 1
-        while position < 0:
+        elif direction == "R" and position < oldPosition:
             timespassingzero += 1
-            position += 100
 
         print(position, timespassingzero)
     return timespassingzero
